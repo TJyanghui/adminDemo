@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sge.clear.admin.dao.UserDOMapper" >
+  <resultMap id="BaseResultMap" type="com.sge.clear.admin.model.UserDO" >
+    <id column="USERNAME" property="username" jdbcType="VARCHAR" />
+    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+    <result column="REALNAME" property="realname" jdbcType="VARCHAR" />
+    <result column="IS_ENABLE" property="isEnable" jdbcType="INTEGER" />
+    <result column="ROLE" property="role" jdbcType="VARCHAR" />
+    <result column="GMT_CREATED" property="gmtCreated" jdbcType="TIMESTAMP" />
+    <result column="GMT_MODIFIED" property="gmtModified" jdbcType="TIMESTAMP" />
+    <result column="USER_MODIFIED" property="userModified" jdbcType="VARCHAR" />
+  </resultMap>
+  
+	<sql id="Base_Column_List" >
+	USERNAME, PASSWORD, REALNAME, IS_ENABLE, ROLE, GMT_CREATED, GMT_MODIFIED, USER_MODIFIED
+	</sql>
+  
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+	select 
+	<include refid="Base_Column_List" />
+	from T_USER
+	where USERNAME = #{username,jdbcType=VARCHAR}
+	</select>
+  
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+	delete from T_USER
+	where USERNAME = #{username,jdbcType=VARCHAR}
+	</delete>
+  
+	<insert id="insert" parameterType="com.sge.clear.admin.model.UserDO" >
+	insert into T_USER (USERNAME, PASSWORD, REALNAME, 
+	  IS_ENABLE, ROLE, GMT_CREATED, 
+	  GMT_MODIFIED, USER_MODIFIED)
+	values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR}, 
+	  #{isEnable,jdbcType=DECIMAL}, #{role,jdbcType=VARCHAR}, #{gmtCreated,jdbcType=TIMESTAMP}, 
+	  #{gmtModified,jdbcType=TIMESTAMP}, #{userModified,jdbcType=VARCHAR})
+	</insert>
+  
+	<insert id="insertSelective" parameterType="com.sge.clear.admin.model.UserDO" >
+	insert into T_USER
+	<trim prefix="(" suffix=")" suffixOverrides="," >
+	  <if test="username != null" >
+		USERNAME,
+	  </if>
+	  <if test="password != null" >
+		PASSWORD,
+	  </if>
+	  <if test="realname != null" >
+		REALNAME,
+	  </if>
+	  <if test="isEnable != null" >
+		IS_ENABLE,
+	  </if>
+	  <if test="role != null" >
+		ROLE,
+	  </if>
+	  <if test="gmtCreated != null" >
+		GMT_CREATED,
+	  </if>
+	  <if test="gmtModified != null" >
+		GMT_MODIFIED,
+	  </if>
+	  <if test="userModified != null" >
+		USER_MODIFIED,
+	  </if>
+	</trim>
+	<trim prefix="values (" suffix=")" suffixOverrides="," >
+	  <if test="username != null" >
+		#{username,jdbcType=VARCHAR},
+	  </if>
+	  <if test="password != null" >
+		#{password,jdbcType=VARCHAR},
+	  </if>
+	  <if test="realname != null" >
+		#{realname,jdbcType=VARCHAR},
+	  </if>
+	  <if test="isEnable != null" >
+		#{isEnable,jdbcType=DECIMAL},
+	  </if>
+	  <if test="role != null" >
+		#{role,jdbcType=VARCHAR},
+	  </if>
+	  <if test="gmtCreated != null" >
+		#{gmtCreated,jdbcType=TIMESTAMP},
+	  </if>
+	  <if test="gmtModified != null" >
+		#{gmtModified,jdbcType=TIMESTAMP},
+	  </if>
+	  <if test="userModified != null" >
+		#{userModified,jdbcType=VARCHAR},
+	  </if>
+	</trim>
+	</insert>
+  
+	<update id="updateByPrimaryKeySelective" parameterType="com.sge.clear.admin.model.UserDO" >
+	update T_USER
+	<set >
+	  <if test="password != null" >
+		PASSWORD = #{password,jdbcType=VARCHAR},
+	  </if>
+	  <if test="realname != null" >
+		REALNAME = #{realname,jdbcType=VARCHAR},
+	  </if>
+	  <if test="isEnable != null" >
+		IS_ENABLE = #{isEnable,jdbcType=DECIMAL},
+	  </if>
+	  <if test="role != null" >
+		ROLE = #{role,jdbcType=VARCHAR},
+	  </if>
+	  <if test="gmtCreated != null" >
+		GMT_CREATED = #{gmtCreated,jdbcType=TIMESTAMP},
+	  </if>
+	  <if test="gmtModified != null" >
+		GMT_MODIFIED = #{gmtModified,jdbcType=TIMESTAMP},
+	  </if>
+	  <if test="userModified != null" >
+		USER_MODIFIED = #{userModified,jdbcType=VARCHAR},
+	  </if>
+	</set>
+	where USERNAME = #{username,jdbcType=VARCHAR}
+	</update>
+  
+	<update id="updateByPrimaryKey" parameterType="com.sge.clear.admin.model.UserDO" >
+	update T_USER
+	set PASSWORD = #{password,jdbcType=VARCHAR},
+	  REALNAME = #{realname,jdbcType=VARCHAR},
+	  IS_ENABLE = #{isEnable,jdbcType=DECIMAL},
+	  ROLE = #{role,jdbcType=VARCHAR},
+	  GMT_CREATED = #{gmtCreated,jdbcType=TIMESTAMP},
+	  GMT_MODIFIED = #{gmtModified,jdbcType=TIMESTAMP},
+	  USER_MODIFIED = #{userModified,jdbcType=VARCHAR}
+	where USERNAME = #{username,jdbcType=VARCHAR}
+	</update>
+  
+	<select id="selectByName" resultMap="BaseResultMap" parameterType="String">
+		select
+		<include refid="Base_Column_List" />
+		from t_user
+		where username = #{username,jdbcType=VARCHAR}
+	</select>
+</mapper>

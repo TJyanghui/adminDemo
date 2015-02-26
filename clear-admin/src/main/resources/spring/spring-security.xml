@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans.xsd
+          http://www.springframework.org/schema/security
+          http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<!-- 配置认证管理器  通过硬编码的方式提供
+	<security:authentication-manager alias="authenticationManager">
+		<security:authentication-provider>
+			<security:user-service>
+				<security:user name="admin" password="admin" authorities="ROLE_MASTER" />
+				<security:user name="guest" password="guest" authorities="ROLE_MASTER" />
+			</security:user-service>
+		</security:authentication-provider>
+	</security:authentication-manager>
+	-->
+	
+	<!-- 指定一个自定义的authentication-manager :customUserDetailsService -->  
+    <security:authentication-manager>  
+            <security:authentication-provider user-service-ref="customUserDetailsService">  
+                    <security:password-encoder ref="passwordEncoder"/>  
+            </security:authentication-provider>  
+    </security:authentication-manager>  
+      
+    <!-- 对密码进行MD5编码 -->  
+    <bean class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" id="passwordEncoder"/>  
+  
+    <!--通过 customUserDetailsService,Spring会自动的用户的访问级别.  
+        也可以理解成:以后我们和数据库操作就是通过customUserDetailsService来进行关联. -->  
+    <bean id="customUserDetailsService" class="com.sge.clear.admin.security.CustomUserDetailsService"/>
+
+	<security:http use-expressions="true" access-denied-page="/common/deny.jsp">
+		<!-- 不要过滤图片等静态资源，其中**代表可以跨越目录，*不可以跨越目录。 access="IS_AUTHENTICATED_ANONYMOUSLY":表示匿名访问 
+			注：可以技持正则表达式 -->
+		<!-- 不拦截静态资源 -->
+		<security:intercept-url pattern="/media/*|/dwr/*"
+			access="permitAll" />
+		<!-- 不拦截登录页面 -->
+		<security:intercept-url pattern="/common/login.jsp"
+			access="permitAll" />
+			
+		<!-- 首页登录用户即可访问 -->
+		<security:intercept-url pattern="/common/*"
+			access="isAuthenticated()" />
+
+			
+		<security:intercept-url pattern="/config/*.jsp" access="hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/stepConfig/*|/stepConfig/**" access="hasRole('ROLE_ADMIN')" />			
+		<security:intercept-url pattern="/admin/*.jsp" access="isAuthenticated()" />
+		
+		
+		<!-- 配置登录页面 -->
+		<!-- login-page:默认指定的登录页面. authentication-failure-url:出错后跳转页面. default-target-url:成功登陆后跳转页面. 
+			login-processing-url:发送的登录请求 -->
+		<security:form-login  
+                login-page="/common/login.jsp"   
+                authentication-failure-url="/common/login.jsp?error=true"   
+                default-target-url="/admin/admin.jsp"/>  
+              
+        <security:logout   
+                invalidate-session="true"   
+                logout-success-url="/common/login.jsp"   
+                logout-url="/logout"/>  		
+	</security:http>
+</beans>

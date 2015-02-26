@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:dwr="http://www.directwebremoting.org/schema/spring-dwr"
+	xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context.xsd
+http://www.springframework.org/schema/aop 
+http://www.springframework.org/schema/aop/spring-aop.xsd
+http://www.directwebremoting.org/schema/spring-dwr  
+http://www.directwebremoting.org/schema/spring-dwr-2.0.xsd
+">
+
+	<!-- 引入属性文件 -->
+	<context:property-placeholder location="classpath:config.properties" />
+
+	<!-- 自动扫描(自动注入) <context:component-scan base-package="com.sge.clear.admin.service" 
+		/> -->
+	<bean id="stepServiceHttp" class="com.sge.clear.admin.service.StepServiceHttpImpl"
+	init-method="init">
+		<property name="urlMap">
+			<props>
+				<prop key="LOAD_STEP_URL">${LOAD_STEP_URL}</prop>
+				<prop key="RUN_TASK_URL">${RUN_TASK_URL}</prop>
+				<prop key="CONT_TASK_URL">${CONT_TASK_URL}</prop>
+				<prop key="GET_STATUS_URL">${GET_STATUS_URL}</prop>
+				<prop key="IS_TASK_RUNNING_URL">${IS_TASK_RUNNING_URL}</prop>
+				<prop key="GET_TASK_LOG_URL">${GET_TASK_LOG_URL}</prop>
+				<prop key="GET_STEP_LOG_URL">${GET_STEP_LOG_URL}</prop>
+			</props>
+  		</property>
+  		<dwr:remote javascript="AjaxStepService">
+			<dwr:include method="loadStep" />
+			<dwr:include method="getStepStatus" />
+			<dwr:include method="contTask" />
+			<dwr:include method="getTaskLog" />
+			<dwr:include method="getStepLog" />
+		</dwr:remote>
+		<aop:scoped-proxy proxy-target-class="false" />
+	</bean>
+	
+	<bean id="stepDebugServiceHttp" class="com.sge.clear.admin.service.StepDebugServiceHttpImpl"
+	init-method="init">
+		<property name="urlMap">
+			<props>
+				<prop key="DEBUG_LOAD_STEP_URL">${DEBUG_LOAD_STEP_URL}</prop>
+				<prop key="DEBUG_RUN_STEP_URL">${DEBUG_RUN_STEP_URL}</prop>
+				<prop key="DEBUG_GET_STATUS_URL">${DEBUG_GET_STATUS_URL}</prop>
+				<prop key="DEBUG_GET_TASK_LOG_URL">${DEBUG_GET_TASK_LOG_URL}</prop>
+				<prop key="DEBUG_GET_STEP_LOG_URL">${DEBUG_GET_STEP_LOG_URL}</prop>
+			</props>
+  		</property>
+		<dwr:remote javascript="AjaxStepDebugService">
+			<dwr:include method="loadStep" />
+			<dwr:include method="getStepStatus" />
+			<dwr:include method="runStep" />
+			<dwr:include method="getTaskLog" />
+			<dwr:include method="getStepLog" />
+		</dwr:remote>
+		<aop:scoped-proxy proxy-target-class="false" />
+	</bean>
+		
+	<bean
+		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor"
+		id="asyncExecutor">
+		<!-- 核心线程数，默认为1 -->
+		<property value="10" name="corePoolSize" />
+		<!-- 最大线程数，默认为Integer.MAX_VALUE -->
+		<property value="50" name="maxPoolSize" />
+		<!-- 队列最大长度，默认为Integer.MAX_VALUE -->
+		<property value="2000" name="queueCapacity" />
+		<!-- 线程池维护线程所允许的空闲时间，默认为60s -->
+		<property value="300" name="keepAliveSeconds" />
+		<property name="rejectedExecutionHandler">
+			<!-- AbortPolicy:直接抛出java.util.concurrent.RejectedExecutionException异常 -->
+			<!-- CallerRunsPolicy:若已达到待处理队列长度，将由主线程直接处理请求 -->
+			<!-- DiscardOldestPolicy:抛弃旧的任务；会导致被丢弃的任务无法再次被执行 -->
+			<!-- DiscardPolicy:抛弃当前任务；会导致被丢弃的任务无法再次被执行 -->
+			<bean class="java.util.concurrent.ThreadPoolExecutor$CallerRunsPolicy" />
+		</property>
+	</bean>
+	
+	<!--  
+	<bean id="stepService" class="com.sge.clear.admin.service.StepServiceImpl"
+	init-method="loadStep">
+	</bean>
+	
+	<bean id="stepDebugService" class="com.sge.clear.admin.service.StepDebugServiceImpl"
+	init-method="loadStep">
+	</bean>
+	-->
+	
+	<bean id="stepConfigService" class="com.sge.clear.admin.service.StepConfigServiceImpl"
+	init-method="loadStep">
+		<dwr:remote javascript="AjaxStepConfigService">
+			<dwr:include method="loadStep" />
+			<dwr:include method="deleteByStep" />
+		</dwr:remote>
+		<aop:scoped-proxy proxy-target-class="false" />
+	</bean>	
+</beans>

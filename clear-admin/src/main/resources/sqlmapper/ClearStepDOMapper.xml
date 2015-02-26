@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sge.clear.admin.dao.ClearStepDOMapper" >
+  <resultMap id="BaseResultMap" type="com.sge.clear.admin.model.ClearStepDO" >
+    <id column="STEP" property="step" jdbcType="INTEGER" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="IP" property="ip" jdbcType="VARCHAR" />
+    <result column="URL" property="url" jdbcType="VARCHAR" />
+    <result column="LOGFILE" property="logfile" jdbcType="VARCHAR" />
+    <result column="PARAM" property="param" jdbcType="VARCHAR" />
+    <result column="IS_ENABLE" property="isEnable" jdbcType="INTEGER" />
+    <result column="COMT" property="comt" jdbcType="VARCHAR" />
+    <result column="GMT_CREATED" property="gmtCreated" jdbcType="TIMESTAMP" />
+    <result column="GMT_MODIFIED" property="gmtModified" jdbcType="TIMESTAMP" />
+    <result column="USER_MODIFIED" property="userModified" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    STEP, NAME, IP, URL, LOGFILE, PARAM, IS_ENABLE, COMT, GMT_CREATED, GMT_MODIFIED, 
+    USER_MODIFIED
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="int" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_CLN_STEP_CONFIG
+    where STEP = #{step,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="int" >
+    delete from T_CLN_STEP_CONFIG
+    where STEP = #{step,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.sge.clear.admin.model.ClearStepDO" >
+    insert into T_CLN_STEP_CONFIG (STEP, NAME, IP, 
+      URL, LOGFILE, PARAM, 
+      IS_ENABLE, COMT, GMT_CREATED, 
+      GMT_MODIFIED, USER_MODIFIED)
+    values (#{step,jdbcType=DECIMAL}, #{name,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, 
+      #{url,jdbcType=VARCHAR}, #{logfile,jdbcType=VARCHAR}, #{param,jdbcType=VARCHAR}, 
+      #{isEnable,jdbcType=DECIMAL}, #{comt,jdbcType=VARCHAR}, #{gmtCreated,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP}, #{userModified,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sge.clear.admin.model.ClearStepDO" >
+    insert into T_CLN_STEP_CONFIG
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="step != null" >
+        STEP,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="ip != null" >
+        IP,
+      </if>
+      <if test="url != null" >
+        URL,
+      </if>
+      <if test="logfile != null" >
+        LOGFILE,
+      </if>
+      <if test="param != null" >
+        PARAM,
+      </if>
+      <if test="isEnable != null" >
+        IS_ENABLE,
+      </if>
+      <if test="comt != null" >
+        COMT,
+      </if>
+      <if test="gmtCreated != null" >
+        GMT_CREATED,
+      </if>
+      <if test="gmtModified != null" >
+        GMT_MODIFIED,
+      </if>
+      <if test="userModified != null" >
+        USER_MODIFIED,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="step != null" >
+        #{step,jdbcType=DECIMAL},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="logfile != null" >
+        #{logfile,jdbcType=VARCHAR},
+      </if>
+      <if test="param != null" >
+        #{param,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable,jdbcType=DECIMAL},
+      </if>
+      <if test="comt != null" >
+        #{comt,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreated != null" >
+        #{gmtCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null" >
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userModified != null" >
+        #{userModified,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sge.clear.admin.model.ClearStepDO" >
+    update T_CLN_STEP_CONFIG
+    <set >
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null" >
+        IP = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        URL = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="logfile != null" >
+        LOGFILE = #{logfile,jdbcType=VARCHAR},
+      </if>
+      <if test="param != null" >
+        PARAM = #{param,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnable != null" >
+        IS_ENABLE = #{isEnable,jdbcType=DECIMAL},
+      </if>
+      <if test="comt != null" >
+        COMT = #{comt,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreated != null" >
+        GMT_CREATED = #{gmtCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null" >
+        GMT_MODIFIED = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userModified != null" >
+        USER_MODIFIED = #{userModified,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where STEP = #{step,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sge.clear.admin.model.ClearStepDO" >
+    update T_CLN_STEP_CONFIG
+    set NAME = #{name,jdbcType=VARCHAR},
+      IP = #{ip,jdbcType=VARCHAR},
+      URL = #{url,jdbcType=VARCHAR},
+      LOGFILE = #{logfile,jdbcType=VARCHAR},
+      PARAM = #{param,jdbcType=VARCHAR},
+      IS_ENABLE = #{isEnable,jdbcType=DECIMAL},
+      COMT = #{comt,jdbcType=VARCHAR},
+      GMT_CREATED = #{gmtCreated,jdbcType=TIMESTAMP},
+      GMT_MODIFIED = #{gmtModified,jdbcType=TIMESTAMP},
+      USER_MODIFIED = #{userModified,jdbcType=VARCHAR}
+    where STEP = #{step,jdbcType=DECIMAL}
+  </update>
+  
+  <select id="getAll" resultMap="BaseResultMap">
+		select * from T_CLN_STEP_CONFIG order by STEP
+  </select> 
+  
+  <select id="getEnable" resultMap="BaseResultMap">
+		select * from T_CLN_STEP_CONFIG  where IS_ENABLE=1 order by STEP
+  </select> 
+  
+  
+</mapper>

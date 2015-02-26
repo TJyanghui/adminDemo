@@ -1,0 +1,31 @@
+<datasources>
+
+	<datasource jndi-name="java:jboss/datasources/oracle" pool-name="oracle" enabled="true" use-java-context="true">
+
+		<connection-url>jdbc:oracle:thin:@180.2.30.60:1521:clndb</connection-url>
+
+		<driver>com.oracle</driver>
+		
+		<pool>
+			<min-pool-size>10</min-pool-size>
+			<max-pool-size>100</max-pool-size>
+			<prefill>true</prefill>
+		</pool>
+
+		<security>
+			<user-name>sgecln</user-name>
+			<password>sgecln</password>
+		</security>
+
+	</datasource>
+
+	<drivers>
+		<!-- driver jndi module 名称 这里的名称和刚才我们创建的文件module.xml里面的名称相同 -->
+		<driver name="com.oracle" module="com.oracle">
+			<driver-class>oracle.jdbc.OracleDriver</driver-class>
+			<!--  xa datasource class-->
+			<xa-datasource-class>oracle.jdbc.xa.OracleXADataSource</xa-datasource-class>
+		</driver>
+	</drivers>
+
+</datasources>

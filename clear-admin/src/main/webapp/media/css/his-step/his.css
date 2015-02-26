@@ -1,0 +1,154 @@
+
+.his-input label{
+	display:inline;
+	width:200px;
+	font-family:Microsoft YaHei;
+	height: 20px;
+	line-height: 34px;
+	overflow: hidden;
+}
+
+.his-input input.text{
+	height:20px;
+	width:206px;
+}
+
+
+.row-fluid label.begin-date {
+	display:inline;
+	width:200px;
+	font-family:Microsoft YaHei;
+	height: 20px;
+	line-height: 34px;
+	overflow: hidden;
+}
+
+.row-fluid label.end-date {
+	display:inline;
+	width:200px;
+	font-family:Microsoft YaHei;
+	height: 20px;
+	line-height: 34px;
+	overflow: hidden;
+}
+
+.h3{
+	font-weight:bold;
+}
+
+.navbar-his {
+  width: 100%;
+  margin-left: 0 0 0 110px;
+  border: 0px;
+  padding: 0px; 
+  box-shadow: none;
+  height: 42px; 
+  background-color: #2c3e50
+}
+
+.navbar-his .container-fluid{
+	margin-left: 20px;
+}
+
+.header .brand{
+	margin-left: 0px;
+}
+
+
+body {
+  background-color: #fff !important;
+}
+
+
+/**
+*page-sidebar
+*/
+.page-sidebar{
+	background-color: #fff
+}
+
+ul.page-sidebar-menu > li > a {
+  border-top: 1px solid #5c5c5c !important;
+  color: #000 !important;
+}
+ul.page-sidebar-menu > li:last-child > a {
+  border-bottom: 1px solid transparent !important;
+}
+ul.page-sidebar-menu > li a i {
+  color: #969696;
+}
+ul.page-sidebar-menu > li.open > a,
+ul.page-sidebar-menu > li > a:hover,
+ul.page-sidebar-menu > li:hover > a {
+  background: #999;
+}
+ul.page-sidebar-menu > li.active > a {
+  background: #e02222 !important;
+  border-top-color: transparent !important;
+  color: #fff;
+}
+ul.page-sidebar-menu > li.active > a i {
+  color: #fff;
+}
+ul.page-sidebar-menu > li > ul.sub-menu > li:first-child > a {
+  border-top: 0px !important;
+}
+ul.page-sidebar-menu > li > ul.sub-menu > li.active > a,
+ul.page-sidebar-menu > li > ul.sub-menu > li > a:hover {
+  color: #ffffff !important;
+  background: #999 !important;
+}
+ul.page-sidebar-menu > li > ul.sub-menu > li > a:hover {
+  background: #999 !important;
+}
+/* 3rd level sub menu */
+ul.page-sidebar-menu > li > ul.sub-menu li > ul.sub-menu > li.active > a,
+ul.page-sidebar-menu > li > ul.sub-menu li > ul.sub-menu > li > a:hover,
+ul.page-sidebar-menu > li > ul.sub-menu li.open > a {
+  color: #ffffff !important;
+  background: #2c3e50 !important;
+}
+/* font color for all sub menu links*/
+ul.page-sidebar-menu li > ul.sub-menu > li > a {
+  color: #000;
+}
+/* menu arrows */
+ul.page-sidebar-menu > li > a .arrow:before,
+ul.page-sidebar-menu > li > a .arrow.open:before {
+  color: #7d7d7d !important;
+}
+ul.page-sidebar-menu > li > ul.sub-menu a .arrow:before,
+ul.page-sidebar-menu > li > ul.sub-menu a .arrow.open:before {
+  color: #707070 !important;
+}
+ul.page-sidebar-menu > li > a > .arrow.open:before {
+  color: #8a8a8a !important;
+}
+ul.page-sidebar-menu > li.active > a .arrow:before,
+ul.page-sidebar-menu > li.active > a .arrow.open:before {
+  color: #ffffff !important;
+}
+/* sidebar search */
+.page-sidebar .sidebar-search input {
+  background-color: #2c3e50 !important;
+  color: #7d7d7d;
+}
+.page-sidebar .sidebar-search input::-webkit-input-placeholder {
+  color: #7d7d7d !important;
+}
+.page-sidebar .sidebar-search input:-moz-placeholder {
+  color: #7d7d7d !important;
+}
+.page-sidebar .sidebar-search input:-ms-input-placeholder {
+  color: #7d7d7d !important;
+}
+.page-sidebar .sidebar-search input {
+  background-color: #fff !important;
+  color: #000 !important;
+}
+.page-sidebar .sidebar-search .input-box {
+  border-bottom: 1px solid #7d7d7d !important;
+}
+.page-sidebar .sidebar-search .submit {
+  background-image: url(../image/search-icon.png);
+}
